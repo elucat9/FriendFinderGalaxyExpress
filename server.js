@@ -27,10 +27,10 @@ var friends = [{
     "photo": "https://tse1.mm.bing.net/th?id=OIP.wo0fMkLrg5w2ZBnIZc1jrAHaFO&pid=15.1&P=0&w=246&h=174",
     "scores": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 }
-   
+
 ];
 
-//add a photo for the existing members
+
 
 // Routes
 
@@ -56,31 +56,32 @@ app.get("/api/friends", function (req, res) {
 
 
 
-// Create New Friends - takes in JSON input - the user inputs some personal profile info
+// Create New Friends - takes in JSON input - the user inputs their information
 app.post("/api/friends", function (req, res) {
     var newFriend = req.body;
-    var newFriendScores=newFriend.scores;
-    var totalDiffernec=0;
-    var allDifference=[];
-    for(var i=0;i<friends.length;i++){
-console.log(friends[i].name)
-        for(var j=0;j<10;j++){
-totalDiffernec += Math.abs(friends[i].scores[j]-newFriendScores[j])
+    var newFriendScores = newFriend.scores;
+    var totalDiff = 0;
+    var allDiff = [];
+    for (var i = 0; i < friends.length; i++) {
+        console.log(friends[i].name)
+        for (var j = 0; j < 10; j++) {
+            totalDiff += Math.abs(friends[i].scores[j] - newFriendScores[j])
         }
     }
-    allDifference.push(totalDiffernec);
-    totalDiffernec =0;
+    allDiff.push(totalDiff);
+    totalDiff = 0;
     console.log(newFriend)
     console.log(newFriend.scores)
     console.log(friends);
-   //match with friend with lowest difference
-   var bestMatch=friends[allDifference.indexOf(Math.min.apply(null,allDifference))]
-console.log(bestMatch)
+
+    //match with friend with lowest difference
+    var bestMatch = friends[allDiff.indexOf(Math.min.apply(null, allDiff))]
+    console.log(bestMatch)
     friends.push(newFriend);
 
     res.json(bestMatch);
 
-  
+
 });
 
 // Listener - starts the server 

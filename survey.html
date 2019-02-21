@@ -166,28 +166,25 @@
         <br>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle"
-                aria-hidden="true"></i>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">
             Submit</button>
 
 
 
     </div>
 
-    <!-- Modal -->
+    <!-- result dialog box -->
     <div id="results-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><strong>Best Match</strong></h2>
+                    <h2 class="modal-title">Your new BFF is:</h2>
                 </div>
                 <div class="modal-body">
                     <h2 id="match-name"></h2>
-                    <img id="match-img"
-                        src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                    <img id="match-img">
                 </div>
 
             </div>
@@ -196,32 +193,14 @@
     </div>
 
     <script type="text/javascript">
-        // Chosen CSS
-        var config = {
-            ".chosen-select": {},
-            ".chosen-select-deselect": {
-                allow_single_deselect: true
-            },
-            ".chosen-select-no-single": {
-                disable_search_threshold: 10
-            },
-            ".chosen-select-no-results": {
-                no_results_text: "Oops, nothing found!"
-            },
-            ".chosen-select-width": {
-                width: "95%"
-            }
-        };
+        
+     
 
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
-
-        // Capture the form inputs
+        // Submitting the form
         $("#submit").on("click", function (event) {
             event.preventDefault();
 
-            // Form validation
+            // Form validation each field should be filled out
             function validateForm() {
                 var isValid = true;
                 $(".form-control").each(function () {
@@ -241,7 +220,7 @@
 
             // If all required fields are filled
             if (validateForm()) {
-                // Create an object for the user"s data
+                // object: user"s data
                 var userData = {
                     name: $("#name").val(),
                     photo: $("#photo").val(),
@@ -259,19 +238,19 @@
                     ]
                 };
 
-                // AJAX post the data to the friends API.
+                // AJAX post the data to the friends page
                 $.post("/api/friends", userData, function (data) {
 
-                    // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                    // Grab the result from the AJAX post, then the BFF match's name and photo will display
                     $("#match-name").text(data.name);
                     $("#match-img").attr("src", data.photo);
-
-                    // Show the modal with the best match
                     $("#results-modal").modal("toggle");
 
                 });
+
+                //if form is not filled completely by user
             } else {
-                alert("Please fill out all fields before submitting!");
+                alert("Please fill out the entire survey before submitting.");
             }
         });
     </script>
