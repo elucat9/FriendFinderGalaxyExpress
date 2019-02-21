@@ -232,7 +232,7 @@
                         $("#q10").val()
                     ]
                 };
-                // AJAX post the data to the friends page
+                // AJAX post the data to the backend
                 $.post("/api/friends", userData, function (data) {
                     // Grab the result from the AJAX post, then the BFF match's name and photo will display
                     $("#match-name").text(data.name);

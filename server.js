@@ -4,7 +4,7 @@ var path = require("path");
 
 // Set up Express
 var app = express();
-var PORT = 8080;
+var PORT = process.env.PORT || 3000;
 
 // data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -65,9 +65,10 @@ app.post("/api/friends", function (req, res) {
         for (var j = 0; j < 10; j++) {
             totalDiff += Math.abs(friends[i].scores[j] - newFriendScores[j])
         }
+        allDiff.push(totalDiff);
+        totalDiff = 0;
     }
-    allDiff.push(totalDiff);
-    totalDiff = 0;
+
     console.log(newFriend)
     console.log(newFriend.scores)
     console.log(friends);
