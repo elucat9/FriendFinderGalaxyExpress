@@ -4,7 +4,7 @@ var path = require("path");
 
 // Set up Express
 var app = express();
-var PORT = 3000;
+var PORT = 8080;
 
 // data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -54,8 +54,6 @@ app.get("/api/friends", function (req, res) {
     return res.json(friends);
 });
 
-
-
 // Create New Friends - takes in JSON input - the user inputs their information
 app.post("/api/friends", function (req, res) {
     var newFriend = req.body;
@@ -88,3 +86,6 @@ app.post("/api/friends", function (req, res) {
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
 });
+
+
+
